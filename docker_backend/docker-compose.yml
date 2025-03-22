@@ -1,0 +1,24 @@
+services:
+  backend_mongodb:
+    container_name: backend_mongodb
+    image: 'bitnami/mongodb:latest'
+    ports:
+      - '27017:27017'
+    healthcheck:
+      test: [ "CMD", "mongosh", "--eval", "db.adminCommand('ping')" ]
+      interval: 10s
+      retries: 5
+      timeout: 5s
+  backend_webapp:
+    container_name: backend_webapp
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      backend_mongodb:
+        condition: service_healthy
+    ports:
+      - '5000:5000'
+    environment:
+      MONGO_URI: mongodb://backend_mongodb:27017/pageone?serverSelectionTimeoutMS=2000
+
