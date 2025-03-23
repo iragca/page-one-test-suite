@@ -25,3 +25,9 @@ Once finished, compose down
 ```
 docker compose -f docker_backend/docker-compose.yml down
 ```
+
+### One run script
+If you only need to test once, use this script.
+```
+./scripts/test_backend.sh
+```
