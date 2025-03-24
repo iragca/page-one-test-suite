@@ -41,5 +41,5 @@ class TestUsers(Users):
             "json" in response.headers["Content-Type"]
         ), "Content-Type should be application/json"
         assert (
-            response.json()[0]["username"] == user["username"]
+            response.json()["username"] == user["username"]
         ), f"Response should be the {user['username']=}"
