@@ -4,6 +4,8 @@ WORKDIR /app
 
 RUN apt-get update && apt-get install -y git
 
+RUN rm -rf /page-one
+
 RUN git clone https://github.com/iragca/page-one.git
 
 WORKDIR /app/page-one
