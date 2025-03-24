@@ -1,35 +1,28 @@
-import requests
-from faker import Faker
+import pytest
+import pymongo
 
-BASE_URL = "http://localhost:5000"  # Deployed instance
-
-
-def test_signup():
-    url = f"{BASE_URL}/signup"
-
-    random_user = Faker().user_name()
-
-    data = {
-        "username": random_user,
-        "password": "password",
-        "email": "test@email.com"
-    }
-
-    response = requests.post(url, json=data)
-
-    assert response.status_code == 201
-    assert response.json()["username"] == random_user
-    assert not response.json()["isVerified"]
-
-    response = requests.post(url, json=data)
-
-    assert response.status_code == 409
-    assert response.json()["message"] == "User already exists"
+from routes.config import MONGODB_URL
+from routes.users import TestUsers
+from routes.signup import TestSignup
+from routes.login import TestLogin
+from routes.index import TestIndex
+from routes.books import TestBooks
 
 
-def test_get_user():
-    url = f"{BASE_URL}"
-    response = requests.get(url)
+@pytest.fixture(autouse=True)
+def setup():
+    client = pymongo.MongoClient(MONGODB_URL)
+    db = client["pageone"]
 
-    assert response.status_code == 200
-    assert response.json()["message"] == "Hello World!"
+    yield db
+
+    db.users.delete_many({})
+    db.credentials.delete_many({})
+    db.userbooks.delete_many({})
+    db.books.delete_many({})
+
+    client.close()
+
+
+if __name__ == "__main__":
+    pytest.main()

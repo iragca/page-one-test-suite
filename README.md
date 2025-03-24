@@ -13,7 +13,7 @@
 
 Start the environment
 ```
-docker compose -f docker_backend/docker-compose.yml up --build -d
+docker compose -f docker_backend/docker-compose.yml up -d
 ```
 
 Run an integration test.
