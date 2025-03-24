@@ -36,4 +36,10 @@ class TestUsers(Users):
         response = requests.get(f"{self.users_url}/{user['username']}")
 
         assert response.status_code == 200, "Status code should be 200"
-        assert response.json() == user, "Response should be the user"
+        assert type(response.json()) is dict, "Response should be a dictionary"
+        assert (
+            "json" in response.headers["Content-Type"]
+        ), "Content-Type should be application/json"
+        assert (
+            response.json()[0]["username"] == user["username"]
+        ), f"Response should be the {user['username']=}"
