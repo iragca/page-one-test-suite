@@ -1,17 +1,17 @@
-from routes.config import BASE_URL, FAKER, requests
+from routes.config import BASE_URL, RANDOM, requests
 
 
 class TestBooks:
 
     @staticmethod
     def generate_book():
-        random_title = FAKER.word()
-        random_author = FAKER.name()
-        random_genre = FAKER.word()
-        random_year = FAKER.year()
-        random_publisher = FAKER.company()
-        random_isbn = FAKER.isbn13()
-        random_cover_photo = FAKER.image_url()
+        random_title = RANDOM.word()
+        random_author = RANDOM.name()
+        random_genre = RANDOM.word()
+        random_year = RANDOM.year()
+        random_publisher = RANDOM.company()
+        random_isbn = RANDOM.isbn13()
+        random_cover_photo = RANDOM.image_url()
 
         book = {
             "title": random_title,

@@ -3,6 +3,6 @@ from faker import Faker
 
 BASE_URL = "http://localhost:5000"
 MONGODB_URL = "mongodb://localhost:27017/"
-FAKER = Faker()
+RANDOM = Faker()
 
 print(f"{BASE_URL=}, {MONGODB_URL=}")

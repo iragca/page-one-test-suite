@@ -1,4 +1,4 @@
-from routes.config import BASE_URL, FAKER, requests
+from routes.config import BASE_URL, RANDOM, requests
 
 
 class TestUsers:
@@ -8,9 +8,9 @@ class TestUsers:
         return f"{BASE_URL}/users"
 
     def _generate_user(self):
-        random_user = FAKER.user_name()
-        random_password = FAKER.password()
-        random_email = FAKER.email()
+        random_user = RANDOM.user_name()
+        random_password = RANDOM.password()
+        random_email = RANDOM.email()
 
         user = {
             "username": random_user,
