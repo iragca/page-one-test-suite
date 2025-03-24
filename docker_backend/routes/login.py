@@ -13,7 +13,7 @@ class TestLogin(TestSignup):
         Signup and Login a user
         """
 
-        user = self._generate_user()
+        user = self.generate_user()
 
         login_data = {
             "username": user["username"],

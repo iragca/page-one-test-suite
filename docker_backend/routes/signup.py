@@ -10,7 +10,7 @@ class TestSignup(TestUsers):
 
     def test_signup(self, setup):
 
-        user = self._generate_user()
+        user = self.generate_user()
         random_user = user["username"]
 
         response = requests.post(self.signup_url, json=user)
@@ -25,7 +25,7 @@ class TestSignup(TestUsers):
     def test_duplicate_signup(self, setup):
         url = f"{BASE_URL}/signup"
 
-        user = self._generate_user()
+        user = self.generate_user()
 
         # Make two requests with the same username
         response = requests.post(url, json=user)

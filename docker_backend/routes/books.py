@@ -5,25 +5,15 @@ class TestBooks:
 
     @staticmethod
     def generate_book():
-        random_title = RANDOM.word()
-        random_author = RANDOM.name()
-        random_genre = RANDOM.word()
-        random_year = RANDOM.year()
-        random_publisher = RANDOM.company()
-        random_isbn = RANDOM.isbn13()
-        random_cover_photo = RANDOM.image_url()
-
-        book = {
-            "title": random_title,
-            "author": random_author,
-            "genre": random_genre,
-            "year_published": random_year,
-            "publisher": random_publisher,
-            "isbn_issn": random_isbn,
-            "cover_photo": random_cover_photo,
+        return {
+            "title": RANDOM.word(),
+            "author": RANDOM.name(),
+            "genre": RANDOM.word(),
+            "year_published": RANDOM.year(),
+            "publisher": RANDOM.company(),
+            "isbn_issn": RANDOM.isbn13(),
+            "cover_photo": RANDOM.image_url(),
         }
-
-        return book
 
     def test_get_books(self, setup):
         """Test GET request to /books endpoint

@@ -7,18 +7,13 @@ class TestUsers:
     def users_url(self):
         return f"{BASE_URL}/users"
 
-    def _generate_user(self):
-        random_user = RANDOM.user_name()
-        random_password = RANDOM.password()
-        random_email = RANDOM.email()
-
-        user = {
-            "username": random_user,
-            "password": random_password,
-            "email": random_email,
+    @staticmethod
+    def generate_user():
+        return {
+            "username": RANDOM.user_name(),
+            "password": RANDOM.password(),
+            "email": RANDOM.email(),
         }
-
-        return user
 
     def test_get_users(self, setup):
         """Test GET request to /users endpoint
