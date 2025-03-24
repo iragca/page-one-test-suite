@@ -3,6 +3,10 @@ from routes.config import BASE_URL, RANDOM, requests
 
 class TestBooks:
 
+    @property
+    def books_url(self):
+        return f"{BASE_URL}/books"
+
     @staticmethod
     def generate_book():
         return {
@@ -19,8 +23,7 @@ class TestBooks:
         """Test GET request to /books endpoint
         Get all books from the database
         """
-        url = f"{BASE_URL}/books"
-        response = requests.get(url)
+        response = requests.get(self.books_url)
 
         assert response.status_code == 200, "Status code should be 200"
         assert type(response.json()) is list, "Response should be a list"
@@ -38,8 +41,7 @@ class TestBooks:
 
         book_id = db.books.find_one({"title": random_title})["_id"]
 
-        url = f"{BASE_URL}/books/{book_id}"
-        response = requests.get(url)
+        response = requests.get(self.books_url + f"/{book_id}")
 
         assert response.status_code == 200, "Status code should be 200"
         assert type(response.json()) is dict, "Response should be a dictionary"
@@ -51,12 +53,10 @@ class TestBooks:
         """Test POST request to /books endpoint
         Add a single book to the database
         """
-        url = f"{BASE_URL}/books"
-
         book = self.generate_book()
         random_title = book["title"]
 
-        response = requests.post(url, data=book)
+        response = requests.post(self.books_url, data=book)
 
         assert response.status_code == 201, "Status code should be 201"
         assert type(response.json()) is dict, "Response should be a dictionary"
@@ -77,8 +77,9 @@ class TestBooks:
 
         book_id = db.books.find_one({"title": random_title})["_id"]
 
-        url = f"{BASE_URL}/books/{book_id}"
-        response = requests.patch(url, data={"title": "Updated Title"})
+        response = requests.patch(
+            self.books_url + f"/{book_id}", data={"title": "Updated Title"}
+        )
 
         assert response.status_code == 200, "Status code should be 200"
         assert type(response.json()) is dict, "Response should be a dictionary"
