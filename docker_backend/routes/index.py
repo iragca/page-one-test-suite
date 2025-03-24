@@ -7,7 +7,7 @@ class TestIndex:
     def index_url(self):
         return f"{BASE_URL}"
 
-    def test_get_index(self, setup):
+    def test_get_index(self, DB):
         """Test GET request to / endpoint
         Should return a simple message
         """

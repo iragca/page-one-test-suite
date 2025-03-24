@@ -8,7 +8,7 @@ class TestLogin(TestSignup):
     def login_url(self):
         return f"{BASE_URL}/login"
 
-    def test_login(self, setup):
+    def test_login(self, DB):
         """Test POST request to /login endpoint
         Signup and Login a user
         """

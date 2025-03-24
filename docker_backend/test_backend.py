@@ -10,7 +10,7 @@ from routes.books import TestBooks  # noqa: F401
 
 
 @pytest.fixture(autouse=True)
-def setup():
+def DB():
     client = pymongo.MongoClient(MONGODB_URL)
     db = client["pageone"]
 

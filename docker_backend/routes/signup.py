@@ -1,14 +1,14 @@
 from routes.config import BASE_URL, requests
-from routes.users import TestUsers
+from routes.users import Users
 
 
-class TestSignup(TestUsers):
+class TestSignup(Users):
 
     @property
     def signup_url(self):
         return f"{BASE_URL}/signup"
 
-    def test_signup(self, setup):
+    def test_signup(self, DB):
 
         user = self.generate_user()
         random_user = user["username"]
@@ -22,7 +22,7 @@ class TestSignup(TestUsers):
         ), f"Username should be {random_user}"
         assert not response.json()["isVerified"], "User should not be verified"
 
-    def test_duplicate_signup(self, setup):
+    def test_duplicate_signup(self, DB):
         url = f"{BASE_URL}/signup"
 
         user = self.generate_user()

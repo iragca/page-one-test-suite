@@ -1,6 +1,7 @@
 import os
 
-import requests
+import pytest  # noqa: F401
+import requests  # noqa: F401
 from faker import Faker
 
 BASE_URL = os.getenv("BASE_URL", "http://localhost:5000")

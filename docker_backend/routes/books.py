@@ -19,7 +19,7 @@ class TestBooks:
             "cover_photo": RANDOM.image_url(),
         }
 
-    def test_get_books(self, setup):
+    def test_get_books(self, DB):
         """Test GET request to /books endpoint
         Get all books from the database
         """
@@ -28,11 +28,11 @@ class TestBooks:
         assert response.status_code == 200, "Status code should be 200"
         assert type(response.json()) is list, "Response should be a list"
 
-    def test_get_books_by_id(self, setup):
+    def test_get_books_by_id(self, DB):
         """Test GET request to /books/<id> endpoint
         Get a single book by id
         """
-        db = setup
+        db = DB
 
         book = self.generate_book()
         random_title = book["title"]
@@ -49,7 +49,7 @@ class TestBooks:
             response.json()["title"] == random_title
         ), f"Title should be {random_title}"
 
-    def test_post_books(self, setup):
+    def test_post_books(self, DB):
         """Test POST request to /books endpoint
         Add a single book to the database
         """
@@ -64,18 +64,17 @@ class TestBooks:
             response.json()["title"] == random_title
         ), f"Title should be {random_title}"
 
-    def test_patch_books(self, setup):
+    def test_patch_books(self, DB):
         """Test PATCH request to /books/<id> endpoint
         Update a single book in the database
         """
-        db = setup
 
         book = self.generate_book()
         random_title = book["title"]
 
-        db.books.insert_one(book)
+        DB.books.insert_one(book)
 
-        book_id = db.books.find_one({"title": random_title})["_id"]
+        book_id = DB.books.find_one({"title": random_title})["_id"]
 
         response = requests.patch(
             self.books_url + f"/{book_id}", data={"title": "Updated Title"}
