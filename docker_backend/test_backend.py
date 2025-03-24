@@ -2,11 +2,11 @@ import pytest
 import pymongo
 
 from routes.config import MONGODB_URL
-from routes.users import TestUsers
-from routes.signup import TestSignup
-from routes.login import TestLogin
-from routes.index import TestIndex
-from routes.books import TestBooks
+from routes.users import TestUsers  # noqa: F401, Ruff linter ignores F401
+from routes.signup import TestSignup  # noqa: F401
+from routes.login import TestLogin  # noqa: F401
+from routes.index import TestIndex  # noqa: F401
+from routes.books import TestBooks  # noqa: F401
 
 
 @pytest.fixture(autouse=True)
