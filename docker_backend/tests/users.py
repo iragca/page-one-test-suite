@@ -1,22 +1,8 @@
-from routes.config import BASE_URL, RANDOM, requests
+from tests.config import requests
+from tests.routes.user import User
 
 
-class Users:
-
-    @property
-    def users_url(self):
-        return f"{BASE_URL}/users"
-
-    @staticmethod
-    def generate_user():
-        return {
-            "username": RANDOM.user_name(),
-            "password": RANDOM.password(),
-            "email": RANDOM.email(),
-        }
-
-
-class TestUsers(Users):
+class TestUsers(User):
     def test_get_users(self, DB):
         """Test GET request to /users endpoint
         Get all users from the database

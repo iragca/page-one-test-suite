@@ -1,8 +1,8 @@
-from routes.config import BASE_URL, requests
-from routes.signup import TestSignup
+from tests.config import BASE_URL, requests
+from tests.routes.signup import Signup
 
 
-class TestLogin(TestSignup):
+class TestLogin(Signup):
 
     @property
     def login_url(self):

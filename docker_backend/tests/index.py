@@ -1,11 +1,8 @@
-from routes.config import BASE_URL, requests
+from tests.config import requests
+from tests.routes.index import Index
 
 
-class TestIndex:
-
-    @property
-    def index_url(self):
-        return f"{BASE_URL}"
+class TestIndex(Index):
 
     def test_get_index(self, DB):
         """Test GET request to / endpoint
