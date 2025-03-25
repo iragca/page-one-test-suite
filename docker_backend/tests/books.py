@@ -1,5 +1,6 @@
 from tests.config import requests
 from tests.routes.book import Book
+from tests.routes.user import User
 
 
 class Test_Books(Book):
@@ -108,3 +109,25 @@ class Test_Books_Isbn_isbn(Book):
         response = requests.get(self.books_url + f"/isbn/{random_isbn}")
 
         self.basic_assert(response, json_kws={"isbn_issn": random_isbn})
+
+
+class Test_Book_User_username(Book):
+
+    # books/user/:username
+
+    def test_get_books_by_user(self, DB):
+
+        books = [self.generate_book() for _ in range(3)]
+        user = User.generate_user()
+
+        DB.books.insert_many(books)
+        DB.users.insert_one(user)
+        DB.userbooks.insert_one(
+            {"username": user["username"], "isbn_issn": books[1]["isbn_issn"]}
+        )
+
+        response = requests.get(self.books_url + f"/user/{user['username']}")
+
+        self.basic_assert(response, 200, data_structure=list)
+
+        assert response.json()[0]["isbn_issn"] == books[1]["isbn_issn"]

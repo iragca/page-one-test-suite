@@ -14,6 +14,7 @@ class Index:
         content_type: str = "json",
         data_structure: dict | list = dict,
         json_kws: dict = None,
+        array_kws: tuple = None,
     ) -> None:
         """Basic assertions for API tests."""
 
