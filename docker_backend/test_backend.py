@@ -2,11 +2,16 @@ import pytest
 import pymongo
 
 from tests.config import MONGODB_URL
-from tests.users import TestUsers  # noqa: F401, Ruff linter ignores F401
-from tests.signup import TestSignup  # noqa: F401
-from tests.login import TestLogin  # noqa: F401
-from tests.index import TestIndex  # noqa: F401
-from tests.books import TestBooks  # noqa: F401
+from tests.users import Test_Users  # noqa: F401, Ruff linter ignores F401
+from tests.signup import Test_Signup  # noqa: F401
+from tests.login import Test_Login  # noqa: F401
+from tests.index import Test_Index  # noqa: F401
+from tests.books import (  # noqa: F401
+    Test_Books,  # noqa: F401
+    Test_Books_id,  # noqa: F401
+    Test_Books_Isbn_isbn,  # noqa: F401
+)
+from tests.profile import Test_Profile  # noqa: F401
 
 
 @pytest.fixture(autouse=True)

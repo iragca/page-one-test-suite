@@ -1,7 +1,8 @@
 from tests.config import BASE_URL, RANDOM
+from tests.routes.index import Index
 
 
-class Book:
+class Book(Index):
 
     @property
     def books_url(self):

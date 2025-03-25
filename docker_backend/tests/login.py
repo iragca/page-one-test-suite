@@ -1,12 +1,8 @@
-from tests.config import BASE_URL, requests
-from tests.routes.signup import Signup
+from tests.config import requests
+from tests.routes.login import Login
 
 
-class TestLogin(Signup):
-
-    @property
-    def login_url(self):
-        return f"{BASE_URL}/login"
+class Test_Login(Login):
 
     def test_login(self, DB):
         """Test POST request to /login endpoint

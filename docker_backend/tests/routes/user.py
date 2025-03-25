@@ -1,11 +1,12 @@
-from tests.config import BASE_URL, RANDOM
+from tests.config import RANDOM
+from tests.routes.index import Index
 
 
-class User:
+class User(Index):
 
     @property
     def users_url(self):
-        return f"{BASE_URL}/users"
+        return f"{self.index_url}/users"
 
     @staticmethod
     def generate_user():

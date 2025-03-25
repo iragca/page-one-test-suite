@@ -2,7 +2,7 @@ from tests.config import requests
 from tests.routes.book import Book
 
 
-class TestBooks(Book):
+class Test_Books(Book):
 
     # /books
 
@@ -30,7 +30,8 @@ class TestBooks(Book):
             response.json()["title"] == random_title
         ), f"Title should be {random_title}"
 
-    # /books/:id
+
+class Test_Books_id(Book):
 
     def test_get_books_by_id(self, DB):
         """Test GET request to /books/<id> endpoint
@@ -94,7 +95,8 @@ class TestBooks(Book):
             response.json()["message"] == "Book deleted successfully"
         ), "Message should be Book deleted successfully"
 
-    # /books/isbn/:isbn
+
+class Test_Books_Isbn_isbn(Book):
 
     def test_get_books_by_isbn(self, DB):
         """Test GET request to /books/isbn/<isbn> endpoint

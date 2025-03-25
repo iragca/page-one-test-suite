@@ -2,7 +2,7 @@ from tests.config import requests
 from tests.routes.index import Index
 
 
-class TestIndex(Index):
+class Test_Index(Index):
 
     def test_get_index(self, DB):
         """Test GET request to / endpoint

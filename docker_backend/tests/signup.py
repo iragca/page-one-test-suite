@@ -2,11 +2,7 @@ from tests.config import BASE_URL, requests
 from tests.routes.signup import Signup
 
 
-class TestSignup(Signup):
-
-    @property
-    def signup_url(self):
-        return f"{BASE_URL}/signup"
+class Test_Signup(Signup):
 
     def test_signup(self, DB):
 

@@ -2,7 +2,7 @@ from tests.config import requests
 from tests.routes.user import User
 
 
-class TestUsers(User):
+class Test_Users(User):
     def test_get_users(self, DB):
         """Test GET request to /users endpoint
         Get all users from the database
