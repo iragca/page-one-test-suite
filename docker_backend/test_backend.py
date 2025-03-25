@@ -12,6 +12,7 @@ from tests.books import (  # noqa: F401
     Test_Books_Isbn_isbn,  # noqa: F401
 )
 from tests.profile import Test_Profile  # noqa: F401
+from tests.fallback import Test_Fallback  # noqa: F401
 
 
 @pytest.fixture(autouse=True)
