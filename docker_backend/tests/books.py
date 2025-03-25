@@ -12,8 +12,7 @@ class Test_Books(Book):
         """
         response = requests.get(self.books_url)
 
-        assert response.status_code == 200, "Status code should be 200"
-        assert type(response.json()) is list, "Response should be a list"
+        self.basic_assert(response, data_structure=list)
 
     def test_post_books(self, DB):
         """Test POST request to /books endpoint
@@ -24,11 +23,12 @@ class Test_Books(Book):
 
         response = requests.post(self.books_url, data=book)
 
-        assert response.status_code == 201, "Status code should be 201"
-        assert type(response.json()) is dict, "Response should be a dictionary"
-        assert (
-            response.json()["title"] == random_title
-        ), f"Title should be {random_title}"
+        self.basic_assert(
+            response,
+            201,
+            data_structure=dict,
+            json_kws={"title": random_title},
+        )
 
 
 class Test_Books_id(Book):
@@ -53,6 +53,8 @@ class Test_Books_id(Book):
             response.json()["title"] == random_title
         ), f"Title should be {random_title}"
 
+        self.basic_assert(response, 200, "json")
+
     def test_patch_book(self, DB):
         """Test PATCH request to /books/<id> endpoint
         Update a single book in the database
@@ -69,11 +71,9 @@ class Test_Books_id(Book):
             self.books_url + f"/{book_id}", data={"title": "Updated Title"}
         )
 
-        assert response.status_code == 200, "Status code should be 200"
-        assert type(response.json()) is dict, "Response should be a dictionary"
-        assert (
-            response.json()["message"] == "Book updated successfully"
-        ), "Message should be Book updated successfully"
+        self.basic_assert(
+            response, json_kws={"message": "Book updated successfully"}
+        )
 
     def test_delete_book(self, DB):
         """Test DELETE request to /books/<id> endpoint"
@@ -89,11 +89,9 @@ class Test_Books_id(Book):
 
         response = requests.delete(self.books_url + f"/{book_id}")
 
-        assert response.status_code == 200, "Status code should be 200"
-        assert type(response.json()) is dict, "Response should be a dictionary"
-        assert (
-            response.json()["message"] == "Book deleted successfully"
-        ), "Message should be Book deleted successfully"
+        self.basic_assert(
+            response, json_kws={"message": "Book deleted successfully"}
+        )
 
 
 class Test_Books_Isbn_isbn(Book):
@@ -109,11 +107,4 @@ class Test_Books_Isbn_isbn(Book):
 
         response = requests.get(self.books_url + f"/isbn/{random_isbn}")
 
-        assert response.status_code == 200, "Status code should be 200"
-        assert (
-            "json" in response.headers["Content-Type"]
-        ), "Content-Type should be json"
-        assert type(response.json()) is dict, "Response should be a dictionary"
-        assert (
-            response.json()["isbn_issn"] == random_isbn
-        ), f"ISBN should be {random_isbn}"
+        self.basic_assert(response, json_kws={"isbn_issn": random_isbn})

@@ -11,12 +11,11 @@ class Test_Signup(Signup):
 
         response = requests.post(self.signup_url, json=user)
 
-        assert type(response.json()) is dict, "Response should be a dictionary"
-        assert response.status_code == 201, "Status code should be 201"
-        assert (
-            response.json()["username"] == random_user
-        ), f"Username should be {random_user}"
-        assert not response.json()["isVerified"], "User should not be verified"
+        self.basic_assert(
+            response,
+            201,
+            json_kws={"username": random_user, "isVerified": False},
+        )
 
     def test_duplicate_signup(self, DB):
         url = f"{BASE_URL}/signup"
@@ -27,5 +26,6 @@ class Test_Signup(Signup):
         response = requests.post(url, json=user)
         response = requests.post(url, json=user)
 
-        assert response.status_code == 409
-        assert response.json()["message"] == "User already exists"
+        self.basic_assert(
+            response, 409, json_kws={"message": "User already exists"}
+        )

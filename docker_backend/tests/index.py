@@ -10,8 +10,4 @@ class Test_Index(Index):
         """
         response = requests.get(self.index_url)
 
-        assert response.status_code == 200, "Status code should be 200"
-        assert type(response.json()) is dict, "Response should be a dictionary"
-        assert (
-            response.json()["message"] == "Hello World!"
-        ), "Message should be Hello World!"
+        self.basic_assert(response, json_kws={"message": "Hello World!"})

@@ -19,4 +19,5 @@ class Test_Login(Login):
         requests.post(self.signup_url, json=user)
 
         response = requests.post(self.login_url, json=login_data)
-        assert response.status_code == 200
+
+        self.basic_assert(response)

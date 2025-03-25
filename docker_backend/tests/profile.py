@@ -38,15 +38,8 @@ class Test_Profile(Profile):
             cookies={"username": user["username"]},
         )
 
-        assert response.status_code == 200
-
-        assert (
-            "json" in response.headers["Content-Type"]
-        ), "Response should be JSON"
-
-        assert response.json()["username"] == new_user["username"], (
-            f"Expected: {new_user['username']},"
-            f" Got: {response.json()['username']}"
+        self.basic_assert(
+            response, json_kws={"username": new_user["username"]}
         )
 
     def test_delete_profile(self, DB):
@@ -60,12 +53,8 @@ class Test_Profile(Profile):
             self.profile_url, cookies={"username": "wrong_username"}
         )
 
-        assert response.status_code == 404
-        assert (
-            "json" in response.headers["Content-Type"]
-        ), "Response should be JSON"
-        assert response.json()["message"] == "User not found", (
-            f"Expected: User not found," f" Got: {response.json()['message']}"
+        self.basic_assert(
+            response, 404, json_kws={"message": "User not found"}
         )
 
         # 200 success
@@ -73,11 +62,4 @@ class Test_Profile(Profile):
             self.profile_url, cookies={"username": user["username"]}
         )
 
-        assert response.status_code == 200
-        assert (
-            "json" in response.headers["Content-Type"]
-        ), "Response should be JSON"
-        assert response.json()["username"] == user["username"], (
-            "Expected: the object of the deleted user,"
-            f" Got: {response.json()=}"
-        )
+        self.basic_assert(response, json_kws={"username": user["username"]})
