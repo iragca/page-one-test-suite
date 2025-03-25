@@ -3,6 +3,7 @@ from tests.routes.user import User
 
 
 class Test_Users(User):
+
     def test_get_users(self, DB):
         """Test GET request to /users endpoint
         Get all users from the database
@@ -11,6 +12,9 @@ class Test_Users(User):
 
         assert response.status_code == 200, "Status code should be 200"
         assert type(response.json()) is list, "Response should be a list"
+
+
+class Test_Users_username(User):
 
     def test_get_a_user(self, DB):
         """Test GET request to /users/<username> endpoint
