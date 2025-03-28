@@ -1,23 +1,25 @@
+# flake8: noqa
+
 import pymongo
 import pytest
 import requests
 from loguru import logger
-from tests.books import (  # noqa: F401
-    Test_Book_User_username,  # noqa: F401
-    Test_Books,  # noqa: F401
-    Test_Books_id,  # noqa: F401
-    Test_Books_Isbn_isbn,  # noqa: F401
+from tests.books import (  
+    Test_Book_User_username, 
+    Test_Books, 
+    Test_Books_id, 
+    Test_Books_Isbn_isbn,  
 )
 from tests.config import BASE_URL, MONGODB_URL
-from tests.fallback import Test_Fallback  # noqa: F401
-from tests.index import Test_Index  # noqa: F401
-from tests.login import Test_Login  # noqa: F401
-from tests.profile import Test_Profile  # noqa: F401
-from tests.signup import Test_Signup  # noqa: F401
+from tests.fallback import Test_Fallback  
+from tests.index import Test_Index  
+from tests.login import Test_Login  
+from tests.profile import Test_Profile  
+from tests.signup import Test_Signup  
 from tests.users import (
     Test_Users,
     Test_Users_username,
-)  # noqa: F401, Ruff linter ignores F401
+)
 
 
 @pytest.fixture(autouse=True)
