@@ -6,6 +6,7 @@ import requests
 from loguru import logger
 from tests.books import (  
     Test_Book_User_username, 
+    Test_Book_user,
     Test_Books, 
     Test_Books_id, 
     Test_Books_Isbn_isbn,  

@@ -131,3 +131,61 @@ class Test_Book_User_username(Book):
         self.basic_assert(response, 200, data_structure=list)
 
         assert response.json()[0]["isbn_issn"] == books[1]["isbn_issn"]
+
+
+class Test_Book_user(Book):
+
+    # books/user/
+
+    def test_post_book_to_user(self, DB):
+        """Test POST request to /books/user/ endpoint
+        Add a book to a user's collection
+        """
+        book = self.generate_book()
+        user = User.generate_user()
+
+        DB.books.insert_one(book)
+        DB.users.insert_one(user)
+
+        response = requests.post(
+            self.books_url + "/user",
+            data={
+                "username": user["username"],
+                "isbn_issn": book["isbn_issn"],
+            },
+        )
+
+        self.basic_assert(
+            response,
+            201,
+            data_structure=dict,
+            json_kws={"message": "Book added to user successfully"},
+        )
+
+    def test_delete_book_from_user(self, DB):
+        """Test DELETE request to /books/user/ endpoint
+        Remove a book from a user's collection
+        """
+        book = self.generate_book()
+        user = User.generate_user()
+
+        DB.books.insert_one(book)
+        DB.users.insert_one(user)
+        DB.userbooks.insert_one(
+            {"username": user["username"], "isbn_issn": book["isbn_issn"]}
+        )
+
+        response = requests.delete(
+            self.books_url + "/user",
+            data={
+                "username": user["username"],
+                "isbn_issn": book["isbn_issn"],
+            },
+        )
+
+        self.basic_assert(
+            response,
+            200,
+            data_structure=dict,
+            json_kws={"message": "Book removed from user successfully"},
+        )
