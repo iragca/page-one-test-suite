@@ -11,9 +11,27 @@ class Test_Books(Book):
         """Test GET request to /books endpoint
         Get all books from the database
         """
-        response = requests.get(self.books_url)
 
-        self.basic_assert(response, data_structure=list)
+        # Checking an empty response
+        response = requests.get(self.books_url)
+        self.basic_assert(response, 400, data_structure=dict)
+
+        # Checking a correct response
+        username = User.generate_user()["username"]
+        book = self.generate_book()
+
+        DB.books.insert_one(book)
+        DB.users.insert_one({"username": username})
+        DB.userbooks.insert_one(
+            {"username": username, "isbn_issn": book["isbn_issn"]}
+        )
+
+        response = requests.get(self.books_url, data={"username": username})
+
+        self.basic_assert(response, 200, data_structure=list)
+        response_json = response.json()
+        assert response_json[0]["isbn_issn"] == book["isbn_issn"]
+        assert response_json[0]["owned"] is True
 
     def test_post_books(self, DB):
         """Test POST request to /books endpoint
