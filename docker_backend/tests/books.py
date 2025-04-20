@@ -26,7 +26,7 @@ class Test_Books(Book):
             {"username": username, "isbn_issn": book["isbn_issn"]}
         )
 
-        response = requests.get(self.books_url, data={"username": username})
+        response = requests.get(self.books_url + f"?username={username}")
 
         self.basic_assert(response, 200, data_structure=list)
         response_json = response.json()
