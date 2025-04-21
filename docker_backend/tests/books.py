@@ -147,8 +147,10 @@ class Test_Book_User_username(Book):
         response = requests.get(self.books_url + f"/user/{user['username']}")
 
         self.basic_assert(response, 200, data_structure=list)
+        response_json = response.json()
 
-        assert response.json()[0]["isbn_issn"] == books[1]["isbn_issn"]
+        assert response_json[0]["isbn_issn"] == books[1]["isbn_issn"]
+        assert response_json[0]["owned"] is True
 
 
 class Test_Book_user(Book):
