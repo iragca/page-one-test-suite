@@ -3,7 +3,7 @@ class URL:
         self.url = url
 
     def __truediv__(self, other: str):
-        return f"{self.url}/{other}"
+        return URL(f"{self.url}/{other.strip('/')}")
 
     def __str__(self):
         return self.url
