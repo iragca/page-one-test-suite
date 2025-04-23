@@ -11,6 +11,7 @@ from tests.books import (
     Test_Books_id, 
     Test_Books_Isbn_isbn,  
 )
+from tests.authentication import Test_Authentication
 from tests.config import BASE_URL, MONGODB_URL
 from tests.fallback import Test_Fallback  
 from tests.index import Test_Index  
